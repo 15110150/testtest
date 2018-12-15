@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="true" debug="true">
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <appender name="LOG-CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>[%d{yyyy-MM-dd hh-mm-ss}] - %msg %n</pattern>
+        </encoder>
+    </appender>
+    <appender name="LOG-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>./logs/all/system.log</file>
+        <append>true</append>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>[%d{yyyy-MM-dd hh-mm-ss}] - %msg %n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>./logs/all/system.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>3</maxHistory><!--3 ngày để store log, sau 3 ngày tự del-->
+            <totalSizeCap>1GB</totalSizeCap><!--tối đa 1GB cho mỗi file log-->
+        </rollingPolicy>
+    </appender>
+    <appender name="SERVER-LOG-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>./logs/server-logs/server.log</file>
+        <append>true</append>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>[%d{yyyy-MM-dd hh-mm-ss}] - %msg %n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>./logs/server-logs/server.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>3</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+    <appender name="SMS-LOG-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>./logs/sms-logs/sms.log</file>
+        <append>true</append>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>[%d{yyyy-MM-dd hh-mm-ss}] - %msg %n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>./logs/sms-logs/sms.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>3</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+    <!-- additivity=false ensures analytics data only goes to the analytics log -->
+    <logger name="sms-log" additivity="false">
+        <appender-ref ref="SMS-LOG-FILE"/>
+    </logger>
+    <logger name="server-log" additivity="false">
+        <appender-ref ref="SERVER-LOG-FILE"/>
+    </logger>
+    <root>
+        <appender-ref ref="LOG-CONSOLE"/>
+        <appender-ref ref="LOG-FILE"/>
+    </root>
+</configuration>
