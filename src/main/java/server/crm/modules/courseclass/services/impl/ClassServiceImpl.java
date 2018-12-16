@@ -184,7 +184,12 @@ public class ClassServiceImpl implements ClassService {
             if (targetClass.isPresent()) {
                 List<Long> listStudent = new ArrayList<>();
                 targetClass.get().getMarks().forEach(mark -> listStudent.add(mark.getStudent().getId()));
-                return studentRepository.findAllStudentExceptStudentInAClass(listStudent);
+                if(listStudent.size() > 0) {
+                    return studentRepository.findAllStudentExceptStudentInAClass(listStudent);
+                }
+                else {
+                    return studentRepository.findAllByStatusIsTrue();
+                }
             } else {
                 throw new NotFoundException("Wrong Class ID");
             }

@@ -19,7 +19,6 @@ public class CourseDto {
     private String content;
     private boolean longTermCourse;
     private Long courseCategory;
-    private Set<Class> classes;
     private Set<CourseDiscount> courseDiscounts;
     private Set<MarketingCampaign> marketingCampaign;
     private Date createdDate;
@@ -76,13 +75,6 @@ public class CourseDto {
         this.courseCategory = courseCategory;
     }
 
-    public Set<Class> getClasses() {
-        return classes;
-    }
-
-    public void setClasses(Set<Class> classes) {
-        this.classes = classes;
-    }
 
     public Set<CourseDiscount> getCourseDiscounts() {
         return courseDiscounts;
@@ -140,23 +132,5 @@ public class CourseDto {
         this.status = status;
     }
 
-    public Course convertCourse(){
-        Course course = new Course();
-        course.setId(this.id);
-        course.setName(this.name);
-        course.setDescription(this.description);
-        course.setContent(this.content);
-        course.setClasses(this.classes);
-        course.setCourseDiscounts(this.courseDiscounts);
-        course.setLongTermCourse(this.longTermCourse);
-        course.setMarketingCampaign(this.marketingCampaign);
-        course.setUpdatedBy(this.updatedBy);
-        course.setCreatedBy(this.createdBy);
-        course.setCreatedDate(this.createdDate);
-        course.setUpdatedDate(this.updatedDate);
-        CourseCategory courseCategory = new CourseCategory();
-        courseCategory.setId(this.courseCategory);
-        course.setCourseCategory(courseCategory);
-        return course;
-    }
+
 }

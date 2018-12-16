@@ -12,10 +12,14 @@ import java.util.List;
 public interface StudentRepository extends JpaRepository<Student, Long> {
     Page<Student> findAllByStatusIsTrue(Pageable pageresquest);
 
+
+
     Page<Student> findByNameContainingAndStatusIsTrueIgnoreCase(Pageable pageresquest, String name);
     @Query(value = "select s " +
             "from students s " +
             "where s.id not in :studentIds")
     List<Student> findAllStudentExceptStudentInAClass(@Param("studentIds") List<Long> studentIds);
+
+    List<Student> findAllByStatusIsTrue();
 
 }

@@ -1,6 +1,5 @@
 package server.crm.responses;
 
-import com.google.gson.Gson;
 
 public class ServerInfo {
     private String name;
@@ -73,8 +72,5 @@ public class ServerInfo {
         this.database_name = database_name;
         return this;
     }
-    @Override
-    public String toString() {
-        return this.getClass().getSimpleName() + " : " + new Gson().toJson(this);
-    }
+
 }

@@ -35,7 +35,6 @@ public class DtoToCourse implements Converter<CourseDto, Course> {
         course.setContent(source.getContent());
         course.setMarketingCampaign(source.getMarketingCampaign());
         course.setLongTermCourse(source.isLongTermCourse());
-        course.setClasses(source.getClasses());
         course.setStatus(source.isStatus());
         return course;
     }
